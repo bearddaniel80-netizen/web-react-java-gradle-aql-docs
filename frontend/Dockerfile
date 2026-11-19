@@ -6,11 +6,11 @@ FROM node:22-alpine AS deps
 RUN apk add --no-cache git
 
 RUN git clone --depth=1 \
-    https://github.com/bearddaniel80-netizen/web-aql-docs.git
+    https://github.com/bearddaniel80-netizen/web-react-aql-docs.git
 
 WORKDIR /build
 
-RUN cp /web-aql-docs/frontend/package.json .
+RUN cp /web-react-aql-docs/frontend/package.json .
 
 RUN --mount=type=cache,target=/root/.npm \
     npm install
@@ -30,7 +30,7 @@ WORKDIR /app
 
 COPY --from=deps /build/node_modules ./node_modules
 
-COPY --from=deps /web-aql-docs/frontend .
+COPY --from=deps /web-react-aql-docs/frontend .
 # To generate docs
 # RUN npm run docs
 RUN mkdir -p src/components
